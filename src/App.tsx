@@ -476,10 +476,9 @@ function App() {
             <div className="solutions-page">
               <Reveal className="page-intro">
                 <p className="eyebrow">Solutions</p>
-                <h1>Proof, product, and impact.</h1>
+                <h1>Proof and product.</h1>
                 <p className="hero-text">
-                  See what operators say, how Opvexa shows up in the wild, and the research behind why speed and
-                  automation matter for local businesses.
+                  See what operators say and how Opvexa shows up in the wild for local businesses.
                 </p>
               </Reveal>
 
@@ -521,35 +520,6 @@ function App() {
                         <article className="value-card product-example-card">
                           <h3>{item.title}</h3>
                           <p>{item.body}</p>
-                        </article>
-                      </Reveal>
-                    )
-                  })}
-                </div>
-              </section>
-
-              <section className="solutions-block section-tight" aria-labelledby="impact-heading">
-                <Reveal className="section-heading">
-                  <p className="eyebrow">Impact</p>
-                  <h2 id="impact-heading">Research snapshot</h2>
-                  <p className="hero-text">Sources, not hype.</p>
-                </Reveal>
-
-                <div className="stats-grid">
-                  {proofStats.map((stat, index) => {
-                    const direction: RevealDirection =
-                      index === 0 ? 'left' : index === 1 ? 'up' : 'right'
-                    const delay = index === 1 ? 0 : index === 0 ? 170 : 300
-
-                    return (
-                      <Reveal key={stat.title} direction={direction} delay={delay}>
-                        <article className="stat-card">
-                          <p className="stat-value">{stat.value}</p>
-                          <h3>{stat.title}</h3>
-                          <p>{stat.detail}</p>
-                          <a href={stat.sourceUrl} target="_blank" rel="noreferrer">
-                            Source: {stat.sourceLabel}
-                          </a>
                         </article>
                       </Reveal>
                     )
