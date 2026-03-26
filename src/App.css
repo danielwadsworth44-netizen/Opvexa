@@ -117,12 +117,16 @@
 }
 
 .opvexa-wordmark__mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  background: linear-gradient(135deg, #0077ed, #38bdf8);
-  box-shadow: 0 6px 20px rgba(0, 119, 237, 0.35);
+  line-height: 0;
+  filter: drop-shadow(0 4px 14px rgba(0, 119, 237, 0.25));
+}
+
+.opvexa-wordmark__svg {
+  display: block;
 }
 
 .opvexa-wordmark--footer {
@@ -130,9 +134,7 @@
 }
 
 .opvexa-wordmark--footer .opvexa-wordmark__mark {
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
+  filter: drop-shadow(0 2px 8px rgba(0, 119, 237, 0.2));
 }
 
 .brand-logo-img {
