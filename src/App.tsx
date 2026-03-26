@@ -40,7 +40,48 @@ const proofStats = [
   },
 ]
 
+const clientReviews = [
+  {
+    quote:
+      'We stopped losing after-hours inquiries. The first reply is instant now, and our team only jumps in when it is a real job.',
+    name: 'Jordan M.',
+    role: 'Owner, home services',
+  },
+  {
+    quote:
+      'Customers get answers on sizing and booking without us living in the inbox. It feels like we added a front desk without hiring one.',
+    name: 'Sam K.',
+    role: 'Retail & appointments',
+  },
+  {
+    quote:
+      'Follow-ups used to slip when we were on-site. Automated nudges and summaries mean nothing important sits unanswered.',
+    name: 'Riley T.',
+    role: 'Local contractor',
+  },
+]
+
+const productExamples = [
+  {
+    title: 'Lead capture & instant reply',
+    body:
+      'Web forms, DMs, and missed-call paths route into one flow—auto-acknowledgment, qualification questions, and handoff to your team when it is time to close.',
+  },
+  {
+    title: 'Customer service layer',
+    body:
+      'Trained on your FAQs, policies, and scheduling rules so common questions resolve fast, with a clear path to a human when the situation needs it.',
+  },
+  {
+    title: 'Workflow automation',
+    body:
+      'Reminders, internal pings, and CRM updates triggered by real events—less copy-paste, fewer dropped threads, more repeatable follow-through.',
+  },
+]
+
 const quickReplies = ['More leads', 'Better customer service', 'Save time', 'Just exploring']
+
+type Page = 'home' | 'solutions'
 
 type RevealDirection = 'up' | 'left' | 'right'
 type ChatRole = 'assistant' | 'user'
@@ -198,7 +239,11 @@ const getDiscoveryResponses = (stage: ChatStage, input: string): ChatMessage[] =
   }
 }
 
+const getPageFromHash = (): Page =>
+  window.location.hash === '#solutions' ? 'solutions' : 'home'
+
 function App() {
+  const [page, setPage] = useState<Page>(getPageFromHash)
   const [chatOpen, setChatOpen] = useState(false)
   const [userGoal, setUserGoal] = useState('')
   const [message, setMessage] = useState('')
@@ -224,6 +269,16 @@ function App() {
   }, [userGoal, hasStartedChat])
 
   useEffect(() => {
+    const sync = () => {
+      setPage(getPageFromHash())
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [])
+
+  useEffect(() => {
     if (!chatOpen) {
       return
     }
@@ -239,12 +294,8 @@ function App() {
     })
   }, [messages, chatOpen])
 
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const scrollToSolutions = () => {
-    document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' })
+  const navigateTo = (next: Page) => {
+    window.location.hash = next === 'solutions' ? 'solutions' : ''
   }
 
   const handleQuickReply = (reply: string) => {
@@ -286,17 +337,21 @@ function App() {
     <>
       <div className="page-shell">
         <header className="site-header">
-          <button className="brand" type="button" onClick={scrollTop} aria-label="Opvexa home">
+          <button className="brand" type="button" onClick={() => navigateTo('home')} aria-label="Opvexa home">
             <span className="brand-mark brand-mark--opvexa">
               <SiteLogo />
             </span>
           </button>
 
           <nav className="site-nav" aria-label="Primary">
-            <button className="active" type="button" onClick={scrollTop}>
+            <button className={page === 'home' ? 'active' : ''} type="button" onClick={() => navigateTo('home')}>
               Home
             </button>
-            <button type="button" onClick={scrollToSolutions}>
+            <button
+              className={page === 'solutions' ? 'active' : ''}
+              type="button"
+              onClick={() => navigateTo('solutions')}
+            >
               Solutions
             </button>
             <a href={bookingUrl} target="_blank" rel="noreferrer">
@@ -305,133 +360,170 @@ function App() {
           </nav>
         </header>
 
-        <main>
-          <section className="hero-section">
-            <Reveal className="hero-copy" direction="left">
-              <p className="eyebrow">AI-powered growth systems for local businesses</p>
-              <h1>Never Miss Leads Again</h1>
-              <p className="hero-text">
-                Opvexa helps local businesses capture more leads, improve customer service, and save time with
-                AI-powered systems and automation.
-              </p>
+        <main key={page}>
+          {page === 'home' ? (
+            <>
+              <section className="hero-section">
+                <Reveal className="hero-copy" direction="left">
+                  <p className="eyebrow">AI-powered growth systems for local businesses</p>
+                  <h1>Never Miss Leads Again</h1>
+                  <p className="hero-text">
+                    Opvexa helps local businesses capture more leads, improve customer service, and save time with
+                    AI-powered systems and automation.
+                  </p>
 
-              <div className="hero-actions">
-                <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
-                  Book a call
-                </a>
-                <button className="button button-secondary" type="button" onClick={scrollToSolutions}>
-                  See what we automate
-                </button>
-              </div>
-            </Reveal>
+                  <div className="hero-actions">
+                    <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
+                      Book a call
+                    </a>
+                    <button className="button button-secondary" type="button" onClick={() => navigateTo('solutions')}>
+                      See solutions
+                    </button>
+                  </div>
+                </Reveal>
 
-            <Reveal className="hero-panel" direction="right" delay={120}>
-              <div className="hero-card hero-card-primary">
-                <p className="card-label">What Opvexa builds</p>
-                <h2>Systems that answer, capture, and follow up.</h2>
-                <p>
-                  Practical AI and workflows around your real tools—so inquiries get handled fast, customers feel
-                  looked after, and your team spends time on work that actually moves the business.
+                <Reveal className="hero-panel" direction="right" delay={120}>
+                  <div className="hero-card hero-card-primary">
+                    <p className="card-label">What Opvexa builds</p>
+                    <h2>Systems that answer, capture, and follow up.</h2>
+                    <p>
+                      Practical AI and workflows around your real tools—so inquiries get handled fast, customers feel
+                      looked after, and your team spends time on work that actually moves the business.
+                    </p>
+                  </div>
+
+                  <div className="hero-card hero-card-glow">
+                    <p className="card-label">What we fix first</p>
+                    <div className="mini-stack">
+                      <span>Missed or slow lead response</span>
+                      <span>Repeat questions &amp; scheduling churn</span>
+                      <span>After-hours and peak-time gaps</span>
+                    </div>
+                  </div>
+                </Reveal>
+              </section>
+
+              <section className="section booking-section">
+                <Reveal className="booking-copy" direction="left">
+                  <p className="eyebrow">Start with a fit call</p>
+                  <h2>Tell us how leads and customers move through your business today.</h2>
+                  <p>We will map where AI and automation earn the quickest wins—without overbuilding on day one.</p>
+                  <div className="booking-actions">
+                    <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
+                      Book a call
+                    </a>
+                    <button className="button button-secondary" type="button" onClick={() => navigateTo('solutions')}>
+                      Reviews &amp; examples
+                    </button>
+                  </div>
+                </Reveal>
+
+                <Reveal direction="right" delay={120}>
+                  <div className="booking-panel">
+                    <p className="card-label">On the call</p>
+                    <ul className="checklist">
+                      <li>Quick read on channels where leads and questions show up.</li>
+                      <li>A practical starter system tailored to your volume and tools.</li>
+                      <li>Clear next steps if you want Opvexa to implement and iterate.</li>
+                    </ul>
+                  </div>
+                </Reveal>
+              </section>
+            </>
+          ) : (
+            <div className="solutions-page">
+              <Reveal className="page-intro">
+                <p className="eyebrow">Solutions</p>
+                <h1>Proof, product, and impact.</h1>
+                <p className="hero-text">
+                  See what operators say, how Opvexa shows up in the wild, and the research behind why speed and
+                  automation matter for local businesses.
                 </p>
-              </div>
-
-              <div className="hero-card hero-card-glow">
-                <p className="card-label">What we fix first</p>
-                <div className="mini-stack">
-                  <span>Missed or slow lead response</span>
-                  <span>Repeat questions &amp; scheduling churn</span>
-                  <span>After-hours and peak-time gaps</span>
+                <div className="hero-actions solutions-page-actions">
+                  <button className="button button-secondary" type="button" onClick={() => navigateTo('home')}>
+                    Back to home
+                  </button>
+                  <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
+                    Book a call
+                  </a>
                 </div>
-              </div>
-            </Reveal>
-          </section>
+              </Reveal>
 
-          <section className="section section-tight">
-            <Reveal className="section-heading">
-              <p className="eyebrow">Why speed and systems matter</p>
-              <h2>Local winners respond fast—and automate the busywork.</h2>
-            </Reveal>
+              <section className="solutions-block" aria-labelledby="reviews-heading">
+                <Reveal className="section-heading">
+                  <p className="eyebrow">Reviews</p>
+                  <h2 id="reviews-heading">What local operators say</h2>
+                  <p className="hero-text">Sample quotes for now—drop in real names and results as you collect them.</p>
+                </Reveal>
+                <div className="reviews-grid">
+                  {clientReviews.map((review, index) => {
+                    const direction: RevealDirection =
+                      index === 0 ? 'left' : index === 1 ? 'up' : 'right'
+                    return (
+                      <Reveal key={review.name} direction={direction} delay={index * 100}>
+                        <blockquote className="review-card">
+                          <p className="review-quote">&ldquo;{review.quote}&rdquo;</p>
+                          <footer className="review-meta">
+                            {review.name} · {review.role}
+                          </footer>
+                        </blockquote>
+                      </Reveal>
+                    )
+                  })}
+                </div>
+              </section>
 
-            <div className="stats-grid">
-              {proofStats.map((stat, index) => {
-                const direction: RevealDirection =
-                  index === 0 ? 'left' : index === 1 ? 'up' : 'right'
-                const delay = index === 1 ? 0 : index === 0 ? 170 : 300
+              <section className="solutions-block" aria-labelledby="products-heading">
+                <Reveal className="section-heading">
+                  <p className="eyebrow">Product examples</p>
+                  <h2 id="products-heading">How systems show up in your business</h2>
+                </Reveal>
+                <div className="products-showcase">
+                  {productExamples.map((item, index) => {
+                    const direction: RevealDirection =
+                      index === 0 ? 'left' : index === 1 ? 'up' : 'right'
+                    return (
+                      <Reveal key={item.title} direction={direction} delay={index * 110}>
+                        <article className="value-card product-example-card">
+                          <h3>{item.title}</h3>
+                          <p>{item.body}</p>
+                        </article>
+                      </Reveal>
+                    )
+                  })}
+                </div>
+              </section>
 
-                return (
-                  <Reveal key={stat.title} direction={direction} delay={delay}>
-                    <article className="stat-card">
-                      <p className="stat-value">{stat.value}</p>
-                      <h3>{stat.title}</h3>
-                      <p>{stat.detail}</p>
-                      <a href={stat.sourceUrl} target="_blank" rel="noreferrer">
-                        Source: {stat.sourceLabel}
-                      </a>
-                    </article>
-                  </Reveal>
-                )
-              })}
+              <section className="solutions-block section-tight" aria-labelledby="impact-heading">
+                <Reveal className="section-heading">
+                  <p className="eyebrow">Impact</p>
+                  <h2 id="impact-heading">Why speed and systems matter</h2>
+                  <p className="hero-text">Signals from research—not hype—that back the work we do with operators.</p>
+                </Reveal>
+
+                <div className="stats-grid">
+                  {proofStats.map((stat, index) => {
+                    const direction: RevealDirection =
+                      index === 0 ? 'left' : index === 1 ? 'up' : 'right'
+                    const delay = index === 1 ? 0 : index === 0 ? 170 : 300
+
+                    return (
+                      <Reveal key={stat.title} direction={direction} delay={delay}>
+                        <article className="stat-card">
+                          <p className="stat-value">{stat.value}</p>
+                          <h3>{stat.title}</h3>
+                          <p>{stat.detail}</p>
+                          <a href={stat.sourceUrl} target="_blank" rel="noreferrer">
+                            Source: {stat.sourceLabel}
+                          </a>
+                        </article>
+                      </Reveal>
+                    )
+                  })}
+                </div>
+              </section>
             </div>
-          </section>
-
-          <section className="section" id="solutions">
-            <Reveal className="section-heading">
-              <p className="eyebrow">Built for operators</p>
-              <h2>Clear outcomes—not buzzwords.</h2>
-            </Reveal>
-
-            <div className="value-grid">
-              <Reveal direction="left" delay={0}>
-                <article className="value-card">
-                  <h3>Capture more leads</h3>
-                  <p>
-                    Smarter intake on your site, messages, and missed calls so opportunities do not vanish into the
-                    void.
-                  </p>
-                </article>
-              </Reveal>
-              <Reveal direction="up" delay={120}>
-                <article className="value-card">
-                  <h3>Better customer service</h3>
-                  <p>
-                    Instant answers, guided next steps, and clean handoffs to your people when a human touch matters.
-                  </p>
-                </article>
-              </Reveal>
-              <Reveal direction="right" delay={240}>
-                <article className="value-card">
-                  <h3>Save real time</h3>
-                  <p>
-                    Automate follow-ups, reminders, and repeat workflows so your week is not lost to admin noise.
-                  </p>
-                </article>
-              </Reveal>
-            </div>
-          </section>
-
-          <section className="section booking-section">
-            <Reveal className="booking-copy" direction="left">
-              <p className="eyebrow">Start with a fit call</p>
-              <h2>Tell us how leads and customers move through your business today.</h2>
-              <p>We will map where AI and automation earn the quickest wins—without overbuilding on day one.</p>
-              <div className="booking-actions">
-                <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
-                  Book a call
-                </a>
-              </div>
-            </Reveal>
-
-            <Reveal direction="right" delay={120}>
-              <div className="booking-panel">
-                <p className="card-label">On the call</p>
-                <ul className="checklist">
-                  <li>Quick read on channels where leads and questions show up.</li>
-                  <li>A practical starter system tailored to your volume and tools.</li>
-                  <li>Clear next steps if you want Opvexa to implement and iterate.</li>
-                </ul>
-              </div>
-            </Reveal>
-          </section>
+          )}
         </main>
 
         <footer className="site-footer">

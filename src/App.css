@@ -3,19 +3,6 @@
   overflow: hidden;
 }
 
-@media (min-width: 960px) {
-  .page-shell {
-    max-width: 1160px;
-    margin: 20px auto;
-    border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: var(--bg);
-    box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.04),
-      0 32px 100px rgba(5, 10, 22, 0.55);
-  }
-}
-
 .page-shell::before,
 .page-shell::after {
   content: '';
@@ -47,7 +34,8 @@
 .site-footer,
 .hero-section,
 .section,
-.case-studies-page {
+.case-studies-page,
+.solutions-page {
   position: relative;
   z-index: 1;
 }
@@ -505,13 +493,82 @@
   background: linear-gradient(135deg, #0077ed, #38bdf8);
 }
 
-.case-studies-page {
+.case-studies-page,
+.solutions-page {
   padding-top: 56px;
   padding-bottom: 56px;
 }
 
 .page-intro {
   max-width: 900px;
+}
+
+.solutions-block {
+  margin-top: 48px;
+}
+
+.solutions-block .section-heading {
+  margin-bottom: 8px;
+}
+
+.solutions-block .hero-text {
+  margin-top: 12px;
+}
+
+.reviews-grid {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.review-card {
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  padding: 24px;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.solutions-page-actions {
+  margin-top: 24px;
+}
+
+.review-quote {
+  margin: 0 0 18px;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--muted-strong);
+}
+
+.review-meta {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.products-showcase {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.product-example-card h3 {
+  margin-bottom: 12px;
+}
+
+.product-example-card p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.55;
 }
 
 .case-study-list {
@@ -971,6 +1028,7 @@
   .hero-section,
   .section,
   .case-studies-page,
+  .solutions-page,
   .site-footer {
     padding-inline: 20px;
   }
@@ -992,6 +1050,8 @@
 
   .value-grid,
   .stats-grid,
+  .reviews-grid,
+  .products-showcase,
   .hero-panel,
   .chat-form {
     grid-template-columns: 1fr;

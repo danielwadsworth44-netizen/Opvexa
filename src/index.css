@@ -2,7 +2,6 @@
   /* Opvexa: midnight navy base, white + electric blue accents, cool gray text */
   --bg: #0a1426;
   --bg-soft: #0d1a32;
-  --page-gutter: #dce6f2;
   --surface: rgba(255, 255, 255, 0.08);
   --surface-strong: rgba(255, 255, 255, 0.12);
   --text: #b8cad9;
@@ -58,22 +57,10 @@ body::before {
   opacity: 0.45;
 }
 
-@media (min-width: 960px) {
-  body::before {
-    opacity: 0.22;
-  }
-}
-
 #root {
   width: 100%;
   min-height: 100vh;
-  background: transparent;
-}
-
-@media (max-width: 959px) {
-  #root {
-    background: var(--bg);
-  }
+  background: var(--bg);
 }
 
 a,
