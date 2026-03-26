@@ -190,6 +190,7 @@
 .hero-section,
 .section,
 .case-studies-page,
+.solutions-page,
 .site-footer {
   padding-inline: 48px;
 }
@@ -499,8 +500,14 @@
   padding-bottom: 56px;
 }
 
+.solutions-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
 .page-intro {
-  max-width: 900px;
+  max-width: min(900px, 100%);
 }
 
 .solutions-block {
@@ -533,10 +540,6 @@
     rgba(255, 255, 255, 0.05) 100%
   );
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.solutions-page-actions {
-  margin-top: 24px;
 }
 
 .review-quote {

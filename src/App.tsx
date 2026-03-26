@@ -403,6 +403,34 @@ function App() {
                 </Reveal>
               </section>
 
+              <section className="section section-tight">
+                <Reveal className="section-heading">
+                  <p className="eyebrow">Why speed and systems matter</p>
+                  <h2>Local winners respond fast—and automate the busywork.</h2>
+                </Reveal>
+
+                <div className="stats-grid">
+                  {proofStats.map((stat, index) => {
+                    const direction: RevealDirection =
+                      index === 0 ? 'left' : index === 1 ? 'up' : 'right'
+                    const delay = index === 1 ? 0 : index === 0 ? 170 : 300
+
+                    return (
+                      <Reveal key={`home-${stat.title}`} direction={direction} delay={delay}>
+                        <article className="stat-card">
+                          <p className="stat-value">{stat.value}</p>
+                          <h3>{stat.title}</h3>
+                          <p>{stat.detail}</p>
+                          <a href={stat.sourceUrl} target="_blank" rel="noreferrer">
+                            Source: {stat.sourceLabel}
+                          </a>
+                        </article>
+                      </Reveal>
+                    )
+                  })}
+                </div>
+              </section>
+
               <section className="section booking-section">
                 <Reveal className="booking-copy" direction="left">
                   <p className="eyebrow">Start with a fit call</p>
@@ -439,14 +467,6 @@ function App() {
                   See what operators say, how Opvexa shows up in the wild, and the research behind why speed and
                   automation matter for local businesses.
                 </p>
-                <div className="hero-actions solutions-page-actions">
-                  <button className="button button-secondary" type="button" onClick={() => navigateTo('home')}>
-                    Back to home
-                  </button>
-                  <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
-                    Book a call
-                  </a>
-                </div>
               </Reveal>
 
               <section className="solutions-block" aria-labelledby="reviews-heading">
