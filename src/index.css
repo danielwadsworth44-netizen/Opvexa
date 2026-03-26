@@ -1,0 +1,103 @@
+:root {
+  /* Opvexa: midnight navy, white, electric blue, cool gray */
+  --bg: #070d18;
+  --bg-soft: #0a1628;
+  --surface: rgba(15, 23, 42, 0.55);
+  --surface-strong: rgba(10, 22, 40, 0.92);
+  --text: #94a3b8;
+  --text-h: #ffffff;
+  --muted: #64748b;
+  --muted-strong: #cbd5e1;
+  --border: rgba(148, 163, 184, 0.18);
+  --accent: #38bdf8;
+  --accent-hot: #0077ed;
+  --shadow: 0 32px 90px rgba(0, 0, 0, 0.5);
+  --sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  color: var(--text);
+  background: var(--bg);
+  font: 16px/1.6 var(--sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(circle at center, black, transparent 88%);
+  opacity: 0.45;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+a,
+button,
+input {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--text-h);
+  line-height: 1.08;
+  font-family: 'Manrope', var(--sans);
+}
+
+h1 {
+  max-width: 820px;
+  margin-bottom: 18px;
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  letter-spacing: -0.045em;
+}
+
+h2 {
+  font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+  letter-spacing: -0.035em;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #0077ed;
+  outline-offset: 2px;
+}
