@@ -79,6 +79,21 @@ const productExamples = [
   },
 ]
 
+const painPoints = [
+  {
+    title: 'Missed or slow lead response',
+    blurb: 'Inquiries cool off while your team is tied up—we tighten first touch.',
+  },
+  {
+    title: 'Repeat questions & scheduling churn',
+    blurb: 'Same FAQs and calendar ping-pong—we automate the predictable parts.',
+  },
+  {
+    title: 'After-hours and peak-time gaps',
+    blurb: 'Nights, weekends, rush hour—we keep capture and answers on.',
+  },
+]
+
 const quickReplies = ['More leads', 'Better customer service', 'Save time', 'Just exploring']
 
 type Page = 'home' | 'solutions'
@@ -391,16 +406,28 @@ function App() {
                       looked after, and your team spends time on work that actually moves the business.
                     </p>
                   </div>
-
-                  <div className="hero-card hero-card-glow">
-                    <p className="card-label">What we fix first</p>
-                    <div className="mini-stack">
-                      <span>Missed or slow lead response</span>
-                      <span>Repeat questions &amp; scheduling churn</span>
-                      <span>After-hours and peak-time gaps</span>
-                    </div>
-                  </div>
                 </Reveal>
+              </section>
+
+              <section className="section section-tight home-pain-section" aria-labelledby="pain-heading">
+                <Reveal className="section-heading">
+                  <p className="eyebrow">What we fix first</p>
+                  <h2 id="pain-heading">Where local teams feel the squeeze</h2>
+                </Reveal>
+                <div className="pain-grid">
+                  {painPoints.map((item, index) => {
+                    const direction: RevealDirection =
+                      index === 0 ? 'left' : index === 1 ? 'up' : 'right'
+                    return (
+                      <Reveal key={item.title} direction={direction} delay={80 + index * 90}>
+                        <article className="pain-point-card">
+                          <h3>{item.title}</h3>
+                          <p>{item.blurb}</p>
+                        </article>
+                      </Reveal>
+                    )
+                  })}
+                </div>
               </section>
 
               <section className="section section-tight">
