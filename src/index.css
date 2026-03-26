@@ -1,17 +1,18 @@
 :root {
-  /* Opvexa: midnight navy, white, electric blue, cool gray */
-  --bg: #070d18;
-  --bg-soft: #0a1628;
-  --surface: rgba(15, 23, 42, 0.55);
-  --surface-strong: rgba(10, 22, 40, 0.92);
-  --text: #94a3b8;
+  /* Opvexa: midnight navy base, white + electric blue accents, cool gray text */
+  --bg: #0a1426;
+  --bg-soft: #0d1a32;
+  --page-gutter: #dce6f2;
+  --surface: rgba(255, 255, 255, 0.08);
+  --surface-strong: rgba(255, 255, 255, 0.12);
+  --text: #b8cad9;
   --text-h: #ffffff;
-  --muted: #64748b;
-  --muted-strong: #cbd5e1;
-  --border: rgba(148, 163, 184, 0.18);
+  --muted: #8ea3b8;
+  --muted-strong: #e8eef4;
+  --border: rgba(255, 255, 255, 0.16);
   --accent: #38bdf8;
   --accent-hot: #0077ed;
-  --shadow: 0 32px 90px rgba(0, 0, 0, 0.5);
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
   --sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
   color: var(--text);
@@ -38,6 +39,12 @@ body {
   background: var(--bg);
 }
 
+@media (min-width: 960px) {
+  body {
+    background: var(--page-gutter);
+  }
+}
+
 body::before {
   content: '';
   position: fixed;
@@ -51,10 +58,22 @@ body::before {
   opacity: 0.45;
 }
 
+@media (min-width: 960px) {
+  body::before {
+    opacity: 0.22;
+  }
+}
+
 #root {
   width: 100%;
   min-height: 100vh;
-  background: var(--bg);
+  background: transparent;
+}
+
+@media (max-width: 959px) {
+  #root {
+    background: var(--bg);
+  }
 }
 
 a,
