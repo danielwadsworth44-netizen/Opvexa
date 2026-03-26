@@ -500,14 +500,8 @@
   padding-bottom: 56px;
 }
 
-.solutions-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
 .page-intro {
-  max-width: min(900px, 100%);
+  max-width: 760px;
 }
 
 .solutions-block {
