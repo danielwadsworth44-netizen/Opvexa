@@ -200,13 +200,32 @@
 .hero-section {
   display: grid;
   grid-template-columns: minmax(0, 1.22fr) minmax(220px, 0.58fr);
-  gap: 24px;
+  grid-template-rows: auto auto;
+  column-gap: 24px;
+  row-gap: 0;
   padding-top: 14px;
   padding-bottom: 28px;
-  align-items: start;
+  align-items: stretch;
 }
 
-.hero-copy,
+.hero-section > .hero-eyebrow {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.hero-section > .hero-main-block {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.hero-section > .hero-panel {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+}
+
 .section-heading,
 .booking-copy,
 .page-intro,
@@ -214,18 +233,24 @@
   text-align: left;
 }
 
-.hero-copy h1 {
+.hero-section .hero-eyebrow,
+.hero-section .hero-main-block,
+.hero-section .hero-panel {
+  text-align: left;
+}
+
+.hero-main h1 {
   margin-bottom: 12px;
 }
 
 /* One line with side-by-side hero; stacked layout can wrap on narrow phones */
 @media (min-width: 1081px) {
-  .hero-copy h1 {
+  .hero-main h1 {
     white-space: nowrap;
   }
 }
 
-.hero-copy .eyebrow {
+.hero-section .hero-eyebrow .eyebrow {
   margin-bottom: 10px;
 }
 
@@ -321,10 +346,8 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-self: start;
   justify-content: flex-start;
-  width: 100%;
-  max-width: 320px;
+  min-height: 0;
 }
 
 .hero-card,
@@ -354,13 +377,14 @@
   padding: 30px;
 }
 
-/* “What we build” card: hug content; narrow column keeps headline on one line */
+/* Card fills hero row beside headline+CTAs (top = h1 line, bottom = buttons) */
 .hero-panel .hero-card-primary {
-  flex: 0 1 auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
+  min-height: 0;
   padding: 18px 20px;
   border-radius: 20px;
   max-width: 100%;
@@ -1113,7 +1137,23 @@
     grid-template-columns: 1fr;
   }
 
-  .hero-panel {
+  .hero-section {
+    grid-template-rows: auto auto auto;
+  }
+
+  .hero-section > .hero-eyebrow {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .hero-section > .hero-main-block {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .hero-section > .hero-panel {
+    grid-column: 1;
+    grid-row: 3;
     max-width: 100%;
   }
 

@@ -368,18 +368,22 @@ function App() {
           {page === 'home' ? (
             <>
               <section className="hero-section">
-                <Reveal className="hero-copy" direction="left">
+                <Reveal className="hero-eyebrow" direction="left">
                   <p className="eyebrow">AI systems for local business</p>
-                  <h1>Never Miss Leads Again</h1>
-                  <p className="hero-text">More leads, faster replies, less busywork—AI and automation built around how you work.</p>
+                </Reveal>
+                <Reveal className="hero-main-block" direction="left" delay={50}>
+                  <div className="hero-main">
+                    <h1>Never Miss Leads Again</h1>
+                    <p className="hero-text">More leads, faster replies, less busywork—AI and automation built around how you work.</p>
 
-                  <div className="hero-actions">
-                    <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
-                      Book a call
-                    </a>
-                    <button className="button button-secondary" type="button" onClick={() => navigateTo('solutions')}>
-                      See solutions
-                    </button>
+                    <div className="hero-actions">
+                      <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
+                        Book a call
+                      </a>
+                      <button className="button button-secondary" type="button" onClick={() => navigateTo('solutions')}>
+                        See solutions
+                      </button>
+                    </div>
                   </div>
                 </Reveal>
 
