@@ -16,25 +16,22 @@ const bookingUrl =
 const proofStats = [
   {
     value: '< 5 min',
-    title: 'Speed still wins on leads',
-    detail:
-      'Firms that respond to web leads within an hour are far more likely to have a meaningful conversation than those that wait.',
+    title: 'Fast response wins',
+    detail: 'Quick replies to web leads correlate with actually connecting—waiting costs you the conversation.',
     sourceLabel: 'Harvard Business Review',
     sourceUrl: 'https://hbr.org/2011/03/the-short-life-of-online-sales-leads',
   },
   {
     value: '24/7',
-    title: 'Expectations never sleep',
-    detail:
-      'Customers increasingly expect answers outside business hours—automation and AI fill the gap without burning out your team.',
+    title: 'Always-on expectations',
+    detail: 'People expect answers nights and weekends—automation covers the gaps.',
     sourceLabel: 'Zendesk',
     sourceUrl: 'https://www.zendesk.com/blog/customers-want-fast-responses/',
   },
   {
     value: '~60%',
-    title: 'Time on repetitive work',
-    detail:
-      'Knowledge workers report spending most of their week on manual coordination—prime territory for smart systems and workflows.',
+    title: 'Time on busywork',
+    detail: 'Most of the week goes to manual coordination—systems eat that overhead.',
     sourceLabel: 'Asana',
     sourceUrl: 'https://asana.com/resources/anatomy-of-work',
   },
@@ -42,55 +39,49 @@ const proofStats = [
 
 const clientReviews = [
   {
-    quote:
-      'We stopped losing after-hours inquiries. The first reply is instant now, and our team only jumps in when it is a real job.',
+    quote: 'After-hours leads get an instant reply now—we only step in when it is real work.',
     name: 'Jordan M.',
-    role: 'Owner, home services',
+    role: 'Home services',
   },
   {
-    quote:
-      'Customers get answers on sizing and booking without us living in the inbox. It feels like we added a front desk without hiring one.',
+    quote: 'Sizing and booking questions get answered without us living in the inbox.',
     name: 'Sam K.',
-    role: 'Retail & appointments',
+    role: 'Retail',
   },
   {
-    quote:
-      'Follow-ups used to slip when we were on-site. Automated nudges and summaries mean nothing important sits unanswered.',
+    quote: 'Follow-ups do not slip when we are on-site anymore.',
     name: 'Riley T.',
-    role: 'Local contractor',
+    role: 'Contractor',
   },
 ]
 
 const productExamples = [
   {
-    title: 'Lead capture & instant reply',
-    body:
-      'Web forms, DMs, and missed-call paths route into one flow—auto-acknowledgment, qualification questions, and handoff to your team when it is time to close.',
+    title: 'Lead capture',
+    body: 'Forms, DMs, and missed calls in one flow—auto-reply, qualify, then hand off to you.',
   },
   {
-    title: 'Customer service layer',
-    body:
-      'Trained on your FAQs, policies, and scheduling rules so common questions resolve fast, with a clear path to a human when the situation needs it.',
+    title: 'Service answers',
+    body: 'FAQs and scheduling rules handled fast; escalate to a human when needed.',
   },
   {
-    title: 'Workflow automation',
-    body:
-      'Reminders, internal pings, and CRM updates triggered by real events—less copy-paste, fewer dropped threads, more repeatable follow-through.',
+    title: 'Workflows',
+    body: 'Reminders, pings, and CRM updates from real events—less copy-paste.',
   },
 ]
 
 const painPoints = [
   {
-    title: 'Missed or slow lead response',
-    blurb: 'Inquiries cool off while your team is tied up—we tighten first touch.',
+    title: 'Slow lead response',
+    blurb: 'We tighten first touch before leads go cold.',
   },
   {
-    title: 'Repeat questions & scheduling churn',
-    blurb: 'Same FAQs and calendar ping-pong—we automate the predictable parts.',
+    title: 'FAQ & scheduling churn',
+    blurb: 'We automate the repeat questions.',
   },
   {
-    title: 'After-hours and peak-time gaps',
-    blurb: 'Nights, weekends, rush hour—we keep capture and answers on.',
+    title: 'Off-hours gaps',
+    blurb: 'Capture and answers stay on 24/7.',
   },
 ]
 
@@ -176,18 +167,18 @@ const buildAssistantReply = (input: string) => {
   const normalized = input.toLowerCase()
 
   if (normalized.includes('lead') || normalized.includes('miss') || normalized.includes('call')) {
-    return 'Lead capture is a strong fit—think instant replies, after-hours coverage, and cleaner routing to your team.'
+    return 'Strong fit: instant replies, after-hours coverage, cleaner routing.'
   }
 
   if (normalized.includes('service') || normalized.includes('support') || normalized.includes('customer')) {
-    return 'We can prioritize faster answers, FAQs, and handoffs so customers feel taken care of without extra headcount.'
+    return 'We can speed up FAQs and handoffs without adding headcount.'
   }
 
   if (normalized.includes('time') || normalized.includes('busy') || normalized.includes('manual')) {
-    return 'Automation shines when it removes repeat questions, scheduling ping-pong, and follow-up gaps.'
+    return 'Automation cuts repeat questions, scheduling ping-pong, and missed follow-ups.'
   }
 
-  return 'Thanks for sharing. We will use that to suggest the right mix of AI touchpoints and automation for your business.'
+  return 'Got it—we will match AI and automation to what you described.'
 }
 
 const usesTools = (input: string) => {
@@ -212,7 +203,7 @@ const getDiscoveryResponses = (stage: ChatStage, input: string): ChatMessage[] =
         },
         {
           role: 'assistant',
-          text: 'Do you already use a CRM, booking tool, or inbox where leads land today?',
+          text: 'Using a CRM, booking tool, or inbox for leads today?',
         },
       ]
     case 'tools':
@@ -220,35 +211,35 @@ const getDiscoveryResponses = (stage: ChatStage, input: string): ChatMessage[] =
         ? [
             {
               role: 'assistant',
-              text: 'Great. Where does it hurt most—slow first response, after-hours gaps, or follow-ups falling through the cracks?',
+              text: 'Biggest pain: slow first reply, after-hours, or dropped follow-ups?',
             },
           ]
         : [
             {
               role: 'assistant',
-              text: 'No problem. We can start simple with capture and routing, then layer automation as you grow.',
+              text: 'We can start with capture and routing, then add automation.',
             },
             {
               role: 'assistant',
-              text: 'What would you want handled first: missed calls and texts, website inquiries, or repeat customer questions?',
+              text: 'What first: missed calls/texts, web leads, or repeat customer questions?',
             },
           ]
     case 'pain':
       return [
         {
           role: 'assistant',
-          text: 'That helps. Opvexa systems are built around those exact friction points for local operators.',
+          text: 'That maps to what we build for local teams.',
         },
         {
           role: 'assistant',
-          text: 'Want to walk through a quick fit call? Pick a time that works on the calendar link when you are ready.',
+          text: 'Book a call on the calendar when you want to go deeper.',
         },
       ]
     case 'wrap-up':
       return [
         {
           role: 'assistant',
-          text: 'Happy to keep going here—or book a call and we will map a practical first version for your business.',
+          text: 'Keep chatting here—or book a call for a concrete first plan.',
         },
       ]
   }
@@ -266,7 +257,7 @@ function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'assistant',
-      text: "Hi — I'm the Opvexa assistant. What should improve first: leads, customer replies, or time saved?",
+      text: 'Hi—what matters most: leads, service, or saving time?',
     },
   ])
   const chatMessagesRef = useRef<HTMLDivElement | null>(null)
@@ -275,9 +266,7 @@ function App() {
 
   const chatSummary = useMemo(() => {
     if (!userGoal.trim()) {
-      return hasStartedChat
-        ? 'Tell us your priority and we will tailor next steps.'
-        : 'Tap an option or type a message below.'
+      return hasStartedChat ? 'Your priority shapes what we suggest next.' : 'Tap a chip or type below.'
     }
 
     return `Your focus: ${userGoal}`
@@ -380,12 +369,9 @@ function App() {
             <>
               <section className="hero-section">
                 <Reveal className="hero-copy" direction="left">
-                  <p className="eyebrow">AI-powered growth systems for local businesses</p>
+                  <p className="eyebrow">AI systems for local business</p>
                   <h1>Never Miss Leads Again</h1>
-                  <p className="hero-text">
-                    Opvexa helps local businesses capture more leads, improve customer service, and save time with
-                    AI-powered systems and automation.
-                  </p>
+                  <p className="hero-text">More leads, faster replies, less busywork—AI and automation built around how you work.</p>
 
                   <div className="hero-actions">
                     <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
@@ -399,12 +385,9 @@ function App() {
 
                 <Reveal className="hero-panel" direction="right" delay={120}>
                   <div className="hero-card hero-card-primary">
-                    <p className="card-label">What Opvexa builds</p>
-                    <h2>Systems that answer, capture, and follow up.</h2>
-                    <p>
-                      Practical AI and workflows around your real tools—so inquiries get handled fast, customers feel
-                      looked after, and your team spends time on work that actually moves the business.
-                    </p>
+                    <p className="card-label">What we build</p>
+                    <h2>Answer, capture, follow up.</h2>
+                    <p>AI and workflows on your tools—fast replies, clean handoffs, less admin.</p>
                   </div>
                 </Reveal>
               </section>
@@ -412,7 +395,7 @@ function App() {
               <section className="section section-tight home-pain-section" aria-labelledby="pain-heading">
                 <Reveal className="section-heading">
                   <p className="eyebrow">What we fix first</p>
-                  <h2 id="pain-heading">Where local teams feel the squeeze</h2>
+                  <h2 id="pain-heading">Common bottlenecks</h2>
                 </Reveal>
                 <div className="pain-grid">
                   {painPoints.map((item, index) => {
@@ -432,8 +415,8 @@ function App() {
 
               <section className="section section-tight">
                 <Reveal className="section-heading">
-                  <p className="eyebrow">Why speed and systems matter</p>
-                  <h2>Local winners respond fast—and automate the busywork.</h2>
+                  <p className="eyebrow">Why it matters</p>
+                  <h2>Speed and systems beat guesswork.</h2>
                 </Reveal>
 
                 <div className="stats-grid">
@@ -460,9 +443,9 @@ function App() {
 
               <section className="section booking-section">
                 <Reveal className="booking-copy" direction="left">
-                  <p className="eyebrow">Start with a fit call</p>
-                  <h2>Tell us how leads and customers move through your business today.</h2>
-                  <p>We will map where AI and automation earn the quickest wins—without overbuilding on day one.</p>
+                  <p className="eyebrow">Next step</p>
+                  <h2>Book a short fit call.</h2>
+                  <p>We map the fastest wins—no bloated scope on day one.</p>
                   <div className="booking-actions">
                     <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
                       Book a call
@@ -477,9 +460,9 @@ function App() {
                   <div className="booking-panel">
                     <p className="card-label">On the call</p>
                     <ul className="checklist">
-                      <li>Quick read on channels where leads and questions show up.</li>
-                      <li>A practical starter system tailored to your volume and tools.</li>
-                      <li>Clear next steps if you want Opvexa to implement and iterate.</li>
+                      <li>Where leads and questions actually land.</li>
+                      <li>A starter system sized to your volume.</li>
+                      <li>Clear next steps if we build it.</li>
                     </ul>
                   </div>
                 </Reveal>
@@ -499,8 +482,8 @@ function App() {
               <section className="solutions-block" aria-labelledby="reviews-heading">
                 <Reveal className="section-heading">
                   <p className="eyebrow">Reviews</p>
-                  <h2 id="reviews-heading">What local operators say</h2>
-                  <p className="hero-text">Sample quotes for now—drop in real names and results as you collect them.</p>
+                  <h2 id="reviews-heading">Operator notes</h2>
+                  <p className="hero-text">Placeholder quotes—swap for real clients anytime.</p>
                 </Reveal>
                 <div className="reviews-grid">
                   {clientReviews.map((review, index) => {
@@ -522,8 +505,8 @@ function App() {
 
               <section className="solutions-block" aria-labelledby="products-heading">
                 <Reveal className="section-heading">
-                  <p className="eyebrow">Product examples</p>
-                  <h2 id="products-heading">How systems show up in your business</h2>
+                  <p className="eyebrow">Examples</p>
+                  <h2 id="products-heading">What we deploy</h2>
                 </Reveal>
                 <div className="products-showcase">
                   {productExamples.map((item, index) => {
@@ -544,8 +527,8 @@ function App() {
               <section className="solutions-block section-tight" aria-labelledby="impact-heading">
                 <Reveal className="section-heading">
                   <p className="eyebrow">Impact</p>
-                  <h2 id="impact-heading">Why speed and systems matter</h2>
-                  <p className="hero-text">Signals from research—not hype—that back the work we do with operators.</p>
+                  <h2 id="impact-heading">Research snapshot</h2>
+                  <p className="hero-text">Sources, not hype.</p>
                 </Reveal>
 
                 <div className="stats-grid">
@@ -640,7 +623,7 @@ function App() {
 
               {chatStage === 'wrap-up' ? (
                 <a className="chat-booking-link" href={bookingUrl} target="_blank" rel="noreferrer">
-                  Book a call when you are ready
+                  Book a call
                 </a>
               ) : null}
             </div>
