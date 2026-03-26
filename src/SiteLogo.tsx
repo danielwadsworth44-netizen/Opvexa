@@ -6,8 +6,8 @@ type SiteLogoProps = {
 }
 
 function LogoMark({ compact, gradientId }: { compact?: boolean; gradientId: string }) {
-  const w = compact ? 26 : 34
-  const h = compact ? 34 : 44
+  const w = compact ? 39 : 51
+  const h = compact ? 51 : 66
   return (
     <svg
       className="opvexa-wordmark__svg"

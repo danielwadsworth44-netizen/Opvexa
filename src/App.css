@@ -108,7 +108,7 @@
 .opvexa-wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-family: 'Manrope', var(--sans);
   font-weight: 800;
   font-size: clamp(1.35rem, 3.8vw, 1.75rem);
